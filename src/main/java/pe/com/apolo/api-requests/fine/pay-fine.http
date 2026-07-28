@@ -1,0 +1,3 @@
+### Pay Fine
+POST http://localhost:8080/api/v1/fines/{{fine_id}}/pay
+Authorization: Bearer {{auth_token}}

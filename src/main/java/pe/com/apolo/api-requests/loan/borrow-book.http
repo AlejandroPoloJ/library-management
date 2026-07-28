@@ -1,0 +1,9 @@
+### Borrow a Book
+POST http://localhost:8080/api/v1/loans
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "userId": "{{user_id}}",
+  "bookId": "{{book_id}}"
+}

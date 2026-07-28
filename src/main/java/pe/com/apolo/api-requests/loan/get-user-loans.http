@@ -1,0 +1,8 @@
+### Get User Loans
+GET http://localhost:8080/api/v1/loans/users/{{user_id}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+> {%
+    client.global.set("loan_id", response.body[0].loanId)
+%}

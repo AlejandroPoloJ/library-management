@@ -1,0 +1,12 @@
+### Login Request to retrieve a token
+POST http://localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@apolo.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("auth_token", response.body.accessToken);
+%}

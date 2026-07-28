@@ -1,0 +1,10 @@
+### Create a User
+POST http://localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "fullName": "Alejandro Polo",
+  "birthDate": "1995-06-15",
+  "email": "alejandro@gmail.com",
+  "password": "qwerty"
+}

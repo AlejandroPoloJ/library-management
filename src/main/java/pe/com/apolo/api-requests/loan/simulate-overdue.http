@@ -1,0 +1,4 @@
+### Simulate Overdue
+POST http://localhost:8080/api/v1/loans/{{loan_id}}/simulate-overdue/7
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

@@ -1,0 +1,12 @@
+### Create a Book
+POST http://localhost:8080/api/v1/books
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "title": "Clean Architecture",
+  "isbn": "9780134494166",
+  "author": "Robert C. Martin",
+  "pageCount": 432,
+  "publicationDate": "2017-09-20"
+}

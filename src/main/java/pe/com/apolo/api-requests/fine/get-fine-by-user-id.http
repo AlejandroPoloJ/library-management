@@ -1,0 +1,8 @@
+### Get Fines By UserId
+GET http://localhost:8080/api/v1/fines/users/{{user_id}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+> {%
+    client.global.set("fine_id", response.body[0].id)
+ %}

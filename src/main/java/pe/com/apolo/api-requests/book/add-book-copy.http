@@ -1,0 +1,4 @@
+### Add Book Copy
+POST http://localhost:8080/api/v1/books/{{book_id}}/copies
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

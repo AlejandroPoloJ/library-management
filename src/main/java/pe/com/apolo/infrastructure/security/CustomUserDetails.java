@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private final transient User user;
 
     public CustomUserDetails(User user) {
         this.user = user;

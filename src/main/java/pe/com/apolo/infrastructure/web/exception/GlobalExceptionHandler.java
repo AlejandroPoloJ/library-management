@@ -9,6 +9,7 @@ import pe.com.apolo.domain.exception.*;
 import pe.com.apolo.infrastructure.web.dto.response.ErrorResponse;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
     ) {
 
         return new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.BAD_REQUEST.value(),
                 "Business Rule Violation",
                 ex.getMessage(),
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
     ) {
 
         return new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.BAD_REQUEST.value(),
                 "Invalid Argument",
                 ex.getMessage(),
@@ -66,7 +67,7 @@ public class GlobalExceptionHandler {
                 .orElse("Validation error");
 
         return new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.BAD_REQUEST.value(),
                 "Validation Error",
                 message,
@@ -81,7 +82,7 @@ public class GlobalExceptionHandler {
     ) {
 
         return new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Internal Server Error",
                 ex.getMessage(),

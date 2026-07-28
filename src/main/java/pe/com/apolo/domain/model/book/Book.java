@@ -4,6 +4,7 @@ import pe.com.apolo.domain.model.book.valueobjects.BookId;
 import pe.com.apolo.domain.model.book.valueobjects.ISBN;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class Book {
 
@@ -55,7 +56,7 @@ public class Book {
     }
 
     private static void validatePublicationDate(LocalDate publicationDate) {
-        if (publicationDate == null || publicationDate.isAfter(LocalDate.now())) {
+        if (publicationDate == null || publicationDate.isAfter(LocalDate.now(ZoneId.systemDefault()))) {
             throw new IllegalArgumentException("Publication date cannot be null or in the future.");
         }
     }

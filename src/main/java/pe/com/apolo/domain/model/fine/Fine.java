@@ -6,6 +6,7 @@ import pe.com.apolo.domain.model.fine.valueobjects.Money;
 import pe.com.apolo.domain.model.loan.Loan;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Fine {
     private final FineId id;
@@ -53,7 +54,7 @@ public class Fine {
             throw new FineAlreadyPaidException();
         }
         status = FineStatus.PAID;
-        paidAt = LocalDateTime.now();
+        paidAt = LocalDateTime.now(ZoneId.systemDefault());
     }
 
     public void cancel(){
@@ -79,7 +80,7 @@ public class Fine {
                 FineId.generate(),
                 money,
                 loan,
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.systemDefault()),
                 null,
                 FineStatus.PENDING
         );

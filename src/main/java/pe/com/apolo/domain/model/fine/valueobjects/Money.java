@@ -3,17 +3,11 @@ package pe.com.apolo.domain.model.fine.valueobjects;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-public final class Money {
+public record Money(BigDecimal amount, Currency currency) {
 
-    private final BigDecimal amount;
-    private final Currency currency;
-
-    public Money(BigDecimal amount, Currency currency) {
+    public Money {
         validateAmount(amount);
         validateCurrency(currency);
-
-        this.amount = amount;
-        this.currency = currency;
     }
 
     private static void validateAmount(BigDecimal amount) {

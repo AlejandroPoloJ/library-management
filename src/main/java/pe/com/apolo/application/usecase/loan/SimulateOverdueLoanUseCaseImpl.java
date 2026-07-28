@@ -6,6 +6,7 @@ import pe.com.apolo.domain.model.loan.valueobjects.LoanId;
 import pe.com.apolo.domain.repository.loan.LoanRepository;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class SimulateOverdueLoanUseCaseImpl implements SimulateOverdueLoanUseCase {
 
@@ -27,7 +28,7 @@ public class SimulateOverdueLoanUseCaseImpl implements SimulateOverdueLoanUseCas
                 .orElseThrow(LoanNotFoundException::new);
 
         loan.forceLoanDate(
-                LocalDateTime.now().minusDays(22)
+                LocalDateTime.now(ZoneId.systemDefault()).minusDays(22)
         );
 
         loanRepository.save(loan);

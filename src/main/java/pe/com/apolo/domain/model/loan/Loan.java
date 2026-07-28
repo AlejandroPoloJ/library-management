@@ -10,6 +10,7 @@ import pe.com.apolo.domain.model.user.User;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Optional;
 
@@ -84,7 +85,7 @@ public class Loan {
 
         bookCopy.returnBook();
 
-        this.returnedAt = LocalDateTime.now();
+        this.returnedAt = LocalDateTime.now(ZoneId.systemDefault());
         this.status = LoanStatus.RETURNED;
     }
 
@@ -92,7 +93,7 @@ public class Loan {
 
         LocalDateTime referenceDate =
                 returnedAt == null
-                        ? LocalDateTime.now()
+                        ? LocalDateTime.now(ZoneId.systemDefault())
                         : returnedAt;
 
         return referenceDate.isAfter(dueDate);
@@ -106,7 +107,7 @@ public class Loan {
 
         LocalDateTime referenceDate =
                 returnedAt == null
-                        ? LocalDateTime.now()
+                        ? LocalDateTime.now(ZoneId.systemDefault())
                         : returnedAt;
 
         return Duration.between(dueDate, referenceDate).toDays();
@@ -131,7 +132,8 @@ public class Loan {
     }
 
     public static Loan create(User user, BookCopy copy) {
-        LocalDateTime loanDate = LocalDateTime.now();
+        copy.loan();
+        LocalDateTime loanDate = LocalDateTime.now(ZoneId.systemDefault());
         return new Loan(
                 LoanId.generate(),
                 user,

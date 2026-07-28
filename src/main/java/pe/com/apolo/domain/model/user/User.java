@@ -8,6 +8,7 @@ import pe.com.apolo.domain.model.user.valueobjects.UserId;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 
 public class User {
 
@@ -60,11 +61,18 @@ public class User {
     }
 
     private void validateAge() {
-        int years = Period.between(birthDate, LocalDate.now()).getYears();
+        int years = Period.between(birthDate, LocalDate.now(ZoneId.systemDefault())).getYears();
 
         if (years < 18) {
             throw new UnderageUserException();
         }
+    }
+
+    public void changeRole(Role role) {
+        if (role == null) {
+            throw new IllegalArgumentException("Role cannot be null.");
+        }
+        this.role = role;
     }
 
     public UserId getId() {

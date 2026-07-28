@@ -133,4 +133,11 @@ public class UseCaseConfiguration {
                 authenticationManager
         );
     }
+
+    @Bean
+    public UpdateUserRoleUseCase updateUserRoleUseCase(
+            UserRepository userRepository
+    ) {
+        return new UpdateUserRoleUseCaseImpl(userRepository);
+    }
 }

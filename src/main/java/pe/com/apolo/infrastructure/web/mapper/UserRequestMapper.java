@@ -6,6 +6,8 @@ import pe.com.apolo.domain.model.user.User;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.infrastructure.web.dto.request.CreateUserRequest;
 
+import java.util.UUID;
+
 @Mapper(componentModel = "spring")
 public interface UserRequestMapper {
 
@@ -20,6 +22,10 @@ public interface UserRequestMapper {
                 request.email(),
                 request.password()
         );
+    }
+
+    default UserId toUserId(UUID id) {
+        return new UserId(id);
     }
 
 }

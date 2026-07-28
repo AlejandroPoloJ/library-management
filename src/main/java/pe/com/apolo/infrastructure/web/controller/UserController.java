@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import pe.com.apolo.application.usecase.user.CreateUserUseCase;
 import pe.com.apolo.application.usecase.user.GetAllUsersUseCase;
 import pe.com.apolo.application.usecase.user.GetUserByIdUseCase;
+import pe.com.apolo.application.usecase.user.UpdateUserRoleUseCase;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.infrastructure.web.dto.request.CreateUserRequest;
+import pe.com.apolo.infrastructure.web.dto.request.UpdateUserRoleRequest;
 import pe.com.apolo.infrastructure.web.dto.response.UserResponse;
 import pe.com.apolo.infrastructure.web.mapper.UserRequestMapper;
 import pe.com.apolo.infrastructure.web.mapper.UserResponseMapper;
@@ -23,7 +25,7 @@ public class UserController {
     private final CreateUserUseCase createUserUseCase;
     private final GetUserByIdUseCase getUserByIdUseCase;
     private final GetAllUsersUseCase getAllUsersUseCase;
-
+    private final UpdateUserRoleUseCase updateUserRoleUseCase;
     private final UserRequestMapper requestMapper;
     private final UserResponseMapper responseMapper;
 
@@ -31,12 +33,14 @@ public class UserController {
             CreateUserUseCase createUserUseCase,
             GetUserByIdUseCase getUserByIdUseCase,
             GetAllUsersUseCase getAllUsersUseCase,
+            UpdateUserRoleUseCase updateUserRoleUseCase,
             UserRequestMapper requestMapper,
             UserResponseMapper responseMapper
     ) {
         this.createUserUseCase = createUserUseCase;
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.getAllUsersUseCase = getAllUsersUseCase;
+        this.updateUserRoleUseCase = updateUserRoleUseCase;
         this.requestMapper = requestMapper;
         this.responseMapper = responseMapper;
     }
@@ -71,6 +75,20 @@ public class UserController {
                 .stream()
                 .map(responseMapper::toResponse)
                 .toList();
+    }
+
+    @PatchMapping("/{id}/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateRole(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateUserRoleRequest request
+    ) {
+
+        updateUserRoleUseCase.execute(
+                requestMapper.toUserId(id),
+                request.role()
+        );
     }
 
 }

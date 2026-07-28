@@ -37,7 +37,13 @@ public class SecurityConfig {
                         )
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/login").permitAll()
+                        .requestMatchers(
+                                "/api/v1/auth/login",
+                                "/api/v1/users",
+                                "/api/v1/books",
+                                "/api/v1/loans",
+                                "/api/v1/fines"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(

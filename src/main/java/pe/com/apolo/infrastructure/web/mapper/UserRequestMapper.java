@@ -1,6 +1,7 @@
 package pe.com.apolo.infrastructure.web.mapper;
 
 import org.mapstruct.Mapper;
+import pe.com.apolo.domain.model.user.Role;
 import pe.com.apolo.domain.model.user.User;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.infrastructure.web.dto.request.CreateUserRequest;
@@ -15,7 +16,7 @@ public interface UserRequestMapper {
                 request.fullName(),
                 request.birthDate(),
                 true,
-                request.role(),
+                Role.USER,
                 request.email(),
                 request.password()
         );

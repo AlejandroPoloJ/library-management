@@ -1,6 +1,7 @@
 package pe.com.apolo.infrastructure.web.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.com.apolo.application.usecase.fine.GetFinesByUserUseCase;
 import pe.com.apolo.application.usecase.fine.PayFineUseCase;
@@ -34,6 +35,7 @@ public class FineController {
     }
 
     @GetMapping("/users/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public List<FineResponse> getByUser(
             @PathVariable UUID userId
     ) {
@@ -47,6 +49,7 @@ public class FineController {
     }
 
     @PostMapping("/{fineId}/pay")
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void payFine(
             @PathVariable UUID fineId

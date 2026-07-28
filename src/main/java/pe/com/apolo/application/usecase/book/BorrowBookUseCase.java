@@ -1,4 +1,4 @@
-package pe.com.apolo.application.usecase;
+package pe.com.apolo.application.usecase.book;
 
 import pe.com.apolo.domain.model.book.valueobjects.BookId;
 import pe.com.apolo.domain.model.loan.Loan;

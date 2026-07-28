@@ -2,9 +2,10 @@ package pe.com.apolo.infrastructure.web.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.com.apolo.application.usecase.BorrowBookUseCase;
-import pe.com.apolo.application.usecase.ReturnBookUseCase;
+import pe.com.apolo.application.usecase.book.BorrowBookUseCase;
+import pe.com.apolo.application.usecase.book.ReturnBookUseCase;
 import pe.com.apolo.application.usecase.loan.GetLoansByUserUseCase;
 import pe.com.apolo.application.usecase.loan.SimulateOverdueLoanUseCase;
 import pe.com.apolo.domain.model.loan.Loan;
@@ -41,6 +42,7 @@ public class LoanController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public LoanResponse borrowBook(
             @Valid @RequestBody BorrowBookRequest request
@@ -55,6 +57,7 @@ public class LoanController {
     }
 
     @PostMapping("/{loanId}/return")
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void returnBook(
             @PathVariable UUID loanId
@@ -66,6 +69,7 @@ public class LoanController {
     }
 
     @GetMapping("/users/{userId}")
+    @PreAuthorize("isAuthenticated()")
     public List<LoanResponse> getLoansByUser(
             @PathVariable UUID userId
     ) {
@@ -78,6 +82,7 @@ public class LoanController {
     }
 
     @PostMapping("/{loanId}/simulate-overdue/{days}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void simulateOverdue(
             @PathVariable UUID loanId,

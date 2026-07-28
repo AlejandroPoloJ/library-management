@@ -15,17 +15,26 @@ public class User {
     private String fullName;
     private LocalDate birthDate;
     private boolean active;
+    private Role role;
+    private String email;
+    private String password;
 
     public User(
             UserId id,
             String fullName,
             LocalDate birthDate,
-            boolean active
+            boolean active,
+            Role role,
+            String email,
+            String password
     ) {
         this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.active = active;
+        this.role = role;
+        this.email = email;
+        this.password = password;
     }
 
     public void validateCanBorrowBook(
@@ -72,5 +81,17 @@ public class User {
 
     public boolean isActive() {
         return active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

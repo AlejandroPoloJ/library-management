@@ -1,13 +1,11 @@
-package pe.com.apolo.application.usecase;
+package pe.com.apolo.application.usecase.book;
 
 import pe.com.apolo.domain.exception.BookNotAvailableException;
 import pe.com.apolo.domain.exception.BookNotFoundException;
 import pe.com.apolo.domain.exception.UserNotFoundException;
-import pe.com.apolo.domain.model.book.Book;
 import pe.com.apolo.domain.model.book.BookCopy;
 import pe.com.apolo.domain.model.book.valueobjects.BookId;
 import pe.com.apolo.domain.model.loan.Loan;
-import pe.com.apolo.domain.model.loan.valueobjects.LoanId;
 import pe.com.apolo.domain.model.user.User;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.domain.repository.book.BookCopyRepository;
@@ -15,9 +13,6 @@ import pe.com.apolo.domain.repository.book.BookRepository;
 import pe.com.apolo.domain.repository.fine.FineRepository;
 import pe.com.apolo.domain.repository.loan.LoanRepository;
 import pe.com.apolo.domain.repository.user.UserRepository;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class BorrowBookUseCaseImpl implements BorrowBookUseCase {
 

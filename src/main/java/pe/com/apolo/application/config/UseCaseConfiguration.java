@@ -2,10 +2,12 @@ package pe.com.apolo.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pe.com.apolo.application.usecase.BorrowBookUseCase;
-import pe.com.apolo.application.usecase.BorrowBookUseCaseImpl;
-import pe.com.apolo.application.usecase.ReturnBookUseCase;
-import pe.com.apolo.application.usecase.ReturnBookUseCaseImpl;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pe.com.apolo.application.usecase.book.BorrowBookUseCase;
+import pe.com.apolo.application.usecase.book.BorrowBookUseCaseImpl;
+import pe.com.apolo.application.usecase.book.ReturnBookUseCase;
+import pe.com.apolo.application.usecase.book.ReturnBookUseCaseImpl;
 import pe.com.apolo.application.usecase.book.*;
 import pe.com.apolo.application.usecase.fine.GetFinesByUserUseCase;
 import pe.com.apolo.application.usecase.fine.GetFinesByUserUseCaseImpl;
@@ -15,12 +17,15 @@ import pe.com.apolo.application.usecase.loan.GetLoansByUserUseCase;
 import pe.com.apolo.application.usecase.loan.GetLoansByUserUseCaseImpl;
 import pe.com.apolo.application.usecase.loan.SimulateOverdueLoanUseCase;
 import pe.com.apolo.application.usecase.loan.SimulateOverdueLoanUseCaseImpl;
+import pe.com.apolo.application.usecase.login.LoginUseCase;
+import pe.com.apolo.application.usecase.login.LoginUseCaseImpl;
 import pe.com.apolo.application.usecase.user.*;
 import pe.com.apolo.domain.repository.book.BookCopyRepository;
 import pe.com.apolo.domain.repository.book.BookRepository;
 import pe.com.apolo.domain.repository.fine.FineRepository;
 import pe.com.apolo.domain.repository.loan.LoanRepository;
 import pe.com.apolo.domain.repository.user.UserRepository;
+import pe.com.apolo.domain.service.JwtService;
 
 @Configuration
 public class UseCaseConfiguration {
@@ -70,9 +75,10 @@ public class UseCaseConfiguration {
 
     @Bean
     public CreateUserUseCase createUserUseCase(
-            UserRepository repository
+            UserRepository repository,
+            PasswordEncoder passwordEncoder
     ) {
-        return new CreateUserUseCaseImpl(repository);
+        return new CreateUserUseCaseImpl(repository, passwordEncoder);
     }
 
     @Bean
@@ -113,5 +119,18 @@ public class UseCaseConfiguration {
             LoanRepository loanRepository
     ) {
         return new SimulateOverdueLoanUseCaseImpl(loanRepository);
+    }
+
+    @Bean
+    public LoginUseCase loginUseCase(
+            UserRepository userRepository,
+            JwtService jwtService,
+            AuthenticationManager authenticationManager
+    ) {
+        return new LoginUseCaseImpl(
+                userRepository,
+                jwtService,
+                authenticationManager
+        );
     }
 }

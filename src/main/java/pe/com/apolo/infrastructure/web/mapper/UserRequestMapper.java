@@ -14,7 +14,10 @@ public interface UserRequestMapper {
                 UserId.generate(),
                 request.fullName(),
                 request.birthDate(),
-                true
+                true,
+                request.role(),
+                request.email(),
+                request.password()
         );
     }
 

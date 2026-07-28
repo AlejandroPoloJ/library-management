@@ -2,6 +2,7 @@ package pe.com.apolo.infrastructure.web.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.com.apolo.application.usecase.user.CreateUserUseCase;
 import pe.com.apolo.application.usecase.user.GetAllUsersUseCase;
@@ -41,6 +42,7 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(
             @Valid @RequestBody CreateUserRequest request
@@ -51,6 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     public UserResponse getById(
             @PathVariable UUID id
     ) {
@@ -62,6 +65,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     public List<UserResponse> getAll() {
         return getAllUsersUseCase.execute()
                 .stream()

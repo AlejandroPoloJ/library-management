@@ -2,6 +2,7 @@ package pe.com.apolo.infrastructure.web.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.com.apolo.application.usecase.book.AddBookCopyUseCase;
 import pe.com.apolo.application.usecase.book.CreateBookUseCase;
@@ -45,6 +46,7 @@ public class BookController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void createBook(@Valid @RequestBody CreateBookRequest request) {
 
@@ -54,6 +56,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public BookResponse getById(@PathVariable UUID id) {
 
         return responseMapper.toResponse(
@@ -62,6 +65,7 @@ public class BookController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     public List<BookResponse> getAll() {
 
         return getAllBooksUseCase.execute()
@@ -71,6 +75,7 @@ public class BookController {
     }
 
     @PostMapping("/{id}/copies")
+    @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCopy(@PathVariable UUID id) {
 

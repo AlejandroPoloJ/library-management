@@ -2,7 +2,6 @@ package pe.com.apolo.application.usecase.login;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import pe.com.apolo.domain.model.user.User;
 import pe.com.apolo.domain.repository.user.UserRepository;
 import pe.com.apolo.domain.service.JwtService;

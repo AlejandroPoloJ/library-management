@@ -6,7 +6,6 @@ import pe.com.apolo.domain.model.fine.FineStatus;
 import pe.com.apolo.domain.model.fine.valueobjects.FineId;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.domain.repository.fine.FineRepository;
-import pe.com.apolo.infrastructure.persistence.mapper.BookMapper;
 import pe.com.apolo.infrastructure.persistence.mapper.FineMapper;
 import pe.com.apolo.infrastructure.persistence.repository.SpringDataFineRepository;
 

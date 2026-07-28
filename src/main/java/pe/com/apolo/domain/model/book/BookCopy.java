@@ -3,7 +3,6 @@ package pe.com.apolo.domain.model.book;
 import pe.com.apolo.domain.exception.BookAlreadyAvailableException;
 import pe.com.apolo.domain.exception.BookNotAvailableException;
 import pe.com.apolo.domain.model.book.valueobjects.BookCopyId;
-import pe.com.apolo.domain.model.book.valueobjects.BookId;
 
 public class BookCopy {
     private final BookCopyId id;

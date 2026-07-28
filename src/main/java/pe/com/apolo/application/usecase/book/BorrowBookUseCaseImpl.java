@@ -58,8 +58,6 @@ public class BorrowBookUseCaseImpl implements BorrowBookUseCase {
                 .findAvailableByBookId(bookId)
                 .orElseThrow(BookNotAvailableException::new);
 
-        copy.loan();
-
         Loan loan = Loan.create(user, copy);
 
         bookCopyRepository.save(copy);

@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: library-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PASSWORD_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: library-api
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      PASSWORD_DB: ${PASSWORD_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lm_db
+
+volumes:
+  postgres_data:

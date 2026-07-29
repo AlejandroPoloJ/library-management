@@ -9,6 +9,7 @@ import pe.com.apolo.infrastructure.config.JwtProperties;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -28,16 +29,14 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(User user) {
 
+        Instant now = Instant.now();
+        Instant expiresAt = now.plusMillis(properties.expiration());
+
         return Jwts.builder()
                 .subject(user.getEmail())
                 .claim("role", user.getRole().name())
-                .issuedAt(new Date())
-                .expiration(
-                        new Date(
-                                System.currentTimeMillis() +
-                                        properties.expiration()
-                        )
-                )
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(expiresAt))
                 .signWith(key)
                 .compact();
     }

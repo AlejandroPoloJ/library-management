@@ -2,8 +2,10 @@ package pe.com.apolo.infrastructure.web.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pe.com.apolo.domain.exception.*;
 import pe.com.apolo.infrastructure.web.dto.response.ErrorResponse;
@@ -24,11 +26,11 @@ public class GlobalExceptionHandler {
             UnderageUserException.class,
             UserHasPendingFinesException.class
     })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBusinessException(
             RuntimeException ex,
             HttpServletRequest request
     ) {
-
         return new ErrorResponse(
                 LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.BAD_REQUEST.value(),
@@ -39,11 +41,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleIllegalArgument(
             IllegalArgumentException ex,
             HttpServletRequest request
     ) {
-
         return new ErrorResponse(
                 LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.BAD_REQUEST.value(),
@@ -54,11 +56,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidation(
             MethodArgumentNotValidException ex,
             HttpServletRequest request
     ) {
-
         String message = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -75,12 +77,27 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleAccessDenied(
+            AccessDeniedException ex,
+            HttpServletRequest request
+    ) {
+        return new ErrorResponse(
+                LocalDateTime.now(ZoneId.systemDefault()),
+                HttpStatus.FORBIDDEN.value(),
+                "Access Denied",
+                "You do not have permission to access this resource",
+                request.getRequestURI()
+        );
+    }
+
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleUnknown(
             Exception ex,
             HttpServletRequest request
     ) {
-
         return new ErrorResponse(
                 LocalDateTime.now(ZoneId.systemDefault()),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),

@@ -11,6 +11,7 @@ import pe.com.apolo.domain.model.book.valueobjects.ISBN;
 import pe.com.apolo.domain.repository.book.BookRepository;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +36,7 @@ class GetAllBooksUseCaseTest {
                         new ISBN("9780132350884"),
                         "Robert C. Martin",
                         464,
-                        LocalDate.of(2008, 8, 1)
+                        LocalDate.of(2008, Month.AUGUST, 1)
                 ),
                 new Book(
                         BookId.generate(),
@@ -43,7 +44,7 @@ class GetAllBooksUseCaseTest {
                         new ISBN("9780134685991"),
                         "Joshua Bloch",
                         416,
-                        LocalDate.of(2018, 1, 6)
+                        LocalDate.of(2018, Month.AUGUST, 6)
                 )
         );
 

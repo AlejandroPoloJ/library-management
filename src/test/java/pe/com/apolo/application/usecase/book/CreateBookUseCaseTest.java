@@ -11,6 +11,7 @@ import pe.com.apolo.domain.model.book.valueobjects.ISBN;
 import pe.com.apolo.domain.repository.book.BookRepository;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import static org.mockito.Mockito.*;
 
@@ -32,7 +33,7 @@ class CreateBookUseCaseTest {
                 new ISBN("9780132350884"),
                 "Robert C. Martin",
                 464,
-                LocalDate.of(2008, 8, 1)
+                LocalDate.of(2008, Month.AUGUST, 1)
         );
 
         when(bookRepository.save(book))

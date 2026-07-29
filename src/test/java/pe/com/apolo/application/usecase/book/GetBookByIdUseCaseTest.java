@@ -12,6 +12,7 @@ import pe.com.apolo.domain.model.book.valueobjects.ISBN;
 import pe.com.apolo.domain.repository.book.BookRepository;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +38,7 @@ class GetBookByIdUseCaseTest {
                 new ISBN("9780132350884"),
                 "Robert C. Martin",
                 464,
-                LocalDate.of(2008, 8, 1)
+                LocalDate.of(2008, Month.AUGUST, 1)
         );
 
         when(bookRepository.findById(id))

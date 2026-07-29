@@ -110,7 +110,10 @@ public class Loan {
                         ? LocalDateTime.now(ZoneId.systemDefault())
                         : returnedAt;
 
-        return Duration.between(dueDate, referenceDate).toDays();
+        return Duration.between(
+                dueDate.atZone(ZoneId.systemDefault()),
+                referenceDate.atZone(ZoneId.systemDefault())
+        ).toDays();
     }
 
     private Money calculateFine() {

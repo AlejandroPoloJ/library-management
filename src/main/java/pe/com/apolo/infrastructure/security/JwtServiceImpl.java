@@ -10,7 +10,6 @@ import pe.com.apolo.infrastructure.config.JwtProperties;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
-import java.util.Date;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -32,11 +31,14 @@ public class JwtServiceImpl implements JwtService {
         Instant now = Instant.now();
         Instant expiresAt = now.plusMillis(properties.expiration());
 
+        long iatSeconds = now.getEpochSecond();
+        long expSeconds = expiresAt.getEpochSecond();
+
         return Jwts.builder()
                 .subject(user.getEmail())
                 .claim("role", user.getRole().name())
-                .issuedAt(Date.from(now))
-                .expiration(Date.from(expiresAt))
+                .claim("iat", iatSeconds)
+                .claim("exp", expSeconds)
                 .signWith(key)
                 .compact();
     }

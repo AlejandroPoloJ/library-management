@@ -11,6 +11,7 @@ Expone una **API REST** desacoplada para gestionar libros, préstamos, devolucio
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=for-the-badge&logo=flyway&logoColor=white)](https://flywaydb.org/)
 [![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white)](https://swagger.io/)
 [![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)](https://maven.apache.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
@@ -29,6 +30,7 @@ Expone una **API REST** desacoplada para gestionar libros, préstamos, devolucio
 - [🚀 Instalación y ejecución](#-instalación-y-ejecución)
 - [🔌 Endpoints principales](#-endpoints-principales)
 - [🔐 Roles y seguridad](#-roles-y-seguridad)
+- [📘 Documentación de la API (Swagger)](#-documentación-de-la-api-swagger)
 - [🧪 Tests](#-tests)
 - [📄 Licencia](#-licencia)
 
@@ -67,6 +69,7 @@ Esto permite que la lógica de negocio (dominio y casos de uso) permanezca indep
 - **MapStruct** para mapeo entre capas
 - **Lombok** para reducir boilerplate
 - **JaCoCo** para cobertura de tests
+- **springdoc-openapi (Swagger UI)** para documentación de la API
 - **Maven** como gestor de dependencias
 
 ---
@@ -174,6 +177,19 @@ La autenticación se realiza mediante JWT. Existen tres roles: `USER`, `LIBRARIA
 - Consultar libros y préstamos propios: cualquier usuario autenticado.
 - Cambiar el rol de un usuario: solo `ADMIN`.
 - Registro de usuario: acceso público.
+
+---
+
+## 📘 Documentación de la API (Swagger)
+
+La API está documentada con **OpenAPI** usando **springdoc-openapi**. Con la aplicación en ejecución, podés acceder a:
+
+| Recurso                | URL                                   |
+|-------------------------|----------------------------------------|
+| Swagger UI              | `http://localhost:8080/swagger-ui.html` |
+| Especificación OpenAPI  | `http://localhost:8080/v3/api-docs`     |
+
+Los endpoints protegidos requieren un JWT. En Swagger UI, hacé clic en **Authorize** e ingresá el token obtenido en `POST /api/v1/auth/login` con el formato `Bearer <token>`.
 
 ---
 

@@ -8,6 +8,7 @@ import pe.com.apolo.application.usecase.book.AddBookCopyUseCase;
 import pe.com.apolo.application.usecase.book.CreateBookUseCase;
 import pe.com.apolo.application.usecase.book.GetAllBooksUseCase;
 import pe.com.apolo.application.usecase.book.GetBookByIdUseCase;
+import pe.com.apolo.domain.model.book.Book;
 import pe.com.apolo.domain.model.book.valueobjects.BookId;
 import pe.com.apolo.infrastructure.web.dto.request.CreateBookRequest;
 import pe.com.apolo.infrastructure.web.dto.response.BookResponse;
@@ -48,11 +49,13 @@ public class BookController {
     @PostMapping
     @PreAuthorize("hasRole('LIBRARIAN') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createBook(@Valid @RequestBody CreateBookRequest request) {
+    public BookResponse createBook(@Valid @RequestBody CreateBookRequest request) {
 
-        createBookUseCase.execute(
+        Book created = createBookUseCase.execute(
                 requestMapper.toDomain(request)
         );
+
+        return responseMapper.toResponse(created);
     }
 
     @GetMapping("/{id}")

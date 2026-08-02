@@ -12,12 +12,12 @@ public class CreateBookUseCaseImpl implements CreateBookUseCase {
     }
 
     @Override
-    public void execute(Book book) {
+    public Book execute(Book book) {
 
         if (book == null) {
             throw new IllegalArgumentException("Book cannot be null.");
         }
 
-        bookRepository.save(book);
+        return bookRepository.save(book);
     }
 }

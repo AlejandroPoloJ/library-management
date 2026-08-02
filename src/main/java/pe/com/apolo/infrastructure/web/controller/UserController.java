@@ -8,6 +8,7 @@ import pe.com.apolo.application.usecase.user.CreateUserUseCase;
 import pe.com.apolo.application.usecase.user.GetAllUsersUseCase;
 import pe.com.apolo.application.usecase.user.GetUserByIdUseCase;
 import pe.com.apolo.application.usecase.user.UpdateUserRoleUseCase;
+import pe.com.apolo.domain.model.user.User;
 import pe.com.apolo.domain.model.user.valueobjects.UserId;
 import pe.com.apolo.infrastructure.web.dto.request.CreateUserRequest;
 import pe.com.apolo.infrastructure.web.dto.request.UpdateUserRoleRequest;
@@ -48,12 +49,14 @@ public class UserController {
     @PostMapping
     @PreAuthorize("permitAll()")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(
+    public UserResponse createUser(
             @Valid @RequestBody CreateUserRequest request
     ) {
-        createUserUseCase.execute(
+        User created = createUserUseCase.execute(
                 requestMapper.toDomain(request)
         );
+
+        return responseMapper.toResponse(created);
     }
 
     @GetMapping("/{id}")

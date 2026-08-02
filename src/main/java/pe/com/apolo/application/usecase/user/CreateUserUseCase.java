@@ -4,6 +4,6 @@ import pe.com.apolo.domain.model.user.User;
 
 public interface CreateUserUseCase {
 
-    void execute(User user);
+    User execute(User user);
 
 }

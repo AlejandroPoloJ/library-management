@@ -18,7 +18,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     @Override
-    public void execute(User user) {
+    public User execute(User user) {
         String encoded = passwordEncoder.encode(user.getPassword());
         User securedUser = new User(
                 user.getId(),
@@ -30,6 +30,6 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 encoded
         );
 
-        userRepository.save(securedUser);
+        return userRepository.save(securedUser);
     }
 }

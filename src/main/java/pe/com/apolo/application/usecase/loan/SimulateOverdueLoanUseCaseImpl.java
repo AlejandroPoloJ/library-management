@@ -19,17 +19,15 @@ public class SimulateOverdueLoanUseCaseImpl implements SimulateOverdueLoanUseCas
     }
 
     @Override
-    public void execute(
-            LoanId loanId,
-            int overdueDays
-    ) {
+    public void execute(LoanId loanId, int overdueDays) {
 
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(LoanNotFoundException::new);
 
-        loan.forceLoanDate(
-                LocalDateTime.now(ZoneId.systemDefault()).minusDays(22)
-        );
+        LocalDateTime loanDate = LocalDateTime.now(ZoneId.systemDefault())
+                .minusDays(15L + overdueDays);
+
+        loan.forceLoanDate(loanDate);
 
         loanRepository.save(loan);
     }
